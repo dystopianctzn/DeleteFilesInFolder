@@ -1,28 +1,37 @@
-﻿//путь
-DirectoryInfo folder = new DirectoryInfo(@"C:\1");
+﻿
+Console.Write("Введите путь к папке: ");
+string folderPath = Console.ReadLine();
+DeleteFiles(folderPath);
 
-try
+
+static void DeleteFiles(string folderPath)
 {
-    if (folder.Exists)
+
+    DirectoryInfo folder = new DirectoryInfo(@folderPath);
+
+    try
     {
-        foreach (FileInfo file in folder.GetFiles())
+        if (folder.Exists)
         {
-            if (file.LastAccessTime < DateTime.Now.AddMinutes(-30))
-                file.Delete();
-        }
+            foreach (FileInfo file in folder.GetFiles())
+            {
+                if (file.LastAccessTime < DateTime.Now.AddMinutes(-30))
+                    file.Delete();
+            }
 
 
-        foreach (DirectoryInfo dir in folder.GetDirectories())
-        {
-            if (dir.LastAccessTime < DateTime.Now.AddMinutes(-30))
-                dir.Delete(true);
+            foreach (DirectoryInfo dir in folder.GetDirectories())
+            {
+                if (dir.LastAccessTime < DateTime.Now.AddMinutes(-30))
+                    dir.Delete(true);
+            }
         }
+
+        else
+            Console.WriteLine("Такой папки не существует");
     }
-
-    else
-        Console.WriteLine("Такой папки не существует");
-}
-catch (Exception ex)
-{
-    Console.WriteLine("Произошла ошибка: " + ex.Message);
+    catch (Exception ex)
+    {
+        Console.WriteLine("Произошла ошибка: " + ex.Message);
+    }
 }
