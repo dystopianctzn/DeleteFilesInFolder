@@ -1,7 +1,7 @@
 ﻿
-Console.Write("Введите путь к папке: ");
-string folderPath = Console.ReadLine();
-DeleteFiles(folderPath);
+Console.Write("Введите путь к папке в формате C:\\...\\...\\... : ");
+string folderLocation = Console.ReadLine();
+DeleteFiles(folderLocation);
 
 
 static void DeleteFiles(string folderPath)
